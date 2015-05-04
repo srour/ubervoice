@@ -98,6 +98,13 @@ exports.handleEchoRequest = function(request,response){
 
 			switch (Request.request.intent.name){
 
+				case 'Pair':
+
+
+					response.json(createResponse("Connected with your uber account", false));
+					break;
+
+
 				case 'GetUber':
 					//Call Uber API here
 

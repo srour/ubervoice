@@ -20,6 +20,15 @@
     {
       "intent":"WhereUber",
       "slots":[]
+    },
+    {
+      "intent":"Pair",
+      "slots":[
+        {
+          "name": "Code",
+          "type": "NUMBER"
+        }
+      ]
     }
   ]
 }
