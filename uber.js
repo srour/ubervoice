@@ -22,6 +22,12 @@ app.listen(config.port,function(){
 
   app.use(express.static(path.join(__dirname, config.public)));
   app.use(logger({path: config.logging.file}));
+  
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: false }))
+
+  // parse application/json
+  app.use(bodyParser.json())
 
   //Configure routes
   require('./routes')(app);
