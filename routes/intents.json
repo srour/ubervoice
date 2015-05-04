@@ -1,0 +1,21 @@
+{
+  "intents": [
+    {
+      "intent": "GetHoroscope",
+      "slots": [
+        {
+          "name": "Sign",
+          "type": "LITERAL"
+        },
+        {
+          "name": "Date",
+          "type": "DATE"
+        }
+      ]
+    },
+    {
+      "intent": "GetLuckyNumbers",
+      "slots": []
+    }
+  ]
+}
