@@ -57,7 +57,7 @@ app.listen(config.port,function(){
   passport.use(new uberStrategy({
     clientID: "tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6",
     clientSecret: "GFbj58hxhLGY7Esuvn2kKkYyVV2a1iAg4VACl5d-",
-    callbackURL: "http://localhost:3000/auth/uber/callback"
+    callbackURL: "https://ubervoice.herokuapp.com/auth/uber/callback"
   },
     function(accessToken, refreshToken, profile, done) {
       console.log("Access Token: "+accessToken);
