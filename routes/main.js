@@ -4,10 +4,11 @@ var echo = require('../echo');
 exports.index = function(req,res){
   if(res)
     console.log('response object defined');
+
   
   if(!req.user){
     console.log('User is not authenticated. Rendering welcome page.');
-    res.sendFile(path.resolve(__dirname + '/../build/views/index.html'));
+    res.sendfile(path.resolve(__dirname + '/../build/views/index.html'));
   }
   else{
     console.log('User is logged in!');
