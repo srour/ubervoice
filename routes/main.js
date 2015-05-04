@@ -11,7 +11,7 @@ exports.startSession = function(req,res){
 	console.log(req.body);
 
 	//var request = JSON.parse(req.)
-	res.end(createResponse({});
+	res.end(createResponse({}));
 }
 
 exports.createResponse = function(data){
