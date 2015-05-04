@@ -67,10 +67,10 @@ exports.handleEchoRequest = function(request,response){
 			console.log("RequestID: "+Request.request.requestId);
 			response.json(createResponse("Hello"));
 			break;
-		case 'EndSessionRequest':
+		case 'SessionEndedRequest':
 			//Remove session from session store
 			console.log('End session reason: '+Request.response.reason);
-			
+
 			response.json(createResponse("Goodbye"));
 			break;
 
