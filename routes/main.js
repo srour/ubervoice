@@ -12,7 +12,7 @@ exports.index = function(req,res){
   }
   else{
     console.log('User is logged in!');
-    res.sendFile(path.resolve(__dirname + '/../build/views/main.html'));
+    res.sendfile(path.resolve(__dirname + '/../build/views/main.html'));
   }
   
 }
