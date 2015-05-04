@@ -2,6 +2,12 @@
 
 //	respond
 
+//Store our sessions here
+var sessionStore = {};
+
+
+
+
 var createResponse = function(outputText){
 	/*
 
@@ -56,12 +62,19 @@ exports.handleEchoRequest = function(request,response){
 
 	console.log('Request type:'+Request.request.type);
 
-	if(Request.request.type == 'LaunchRequest'){
-		console.log("RequestID: "+Request.request.requestId);
-		response.json(createResponse("Hello"));
+	switch(Request.request.type){
+		case 'LaunchRequest':
+			console.log("RequestID: "+Request.request.requestId);
+			response.json(createResponse("Hello"));
+			break;
+		case 'EndSessionRequest':
+			//Remove session from session store
+			console.log('End session reason: '+Request.response.reason);
+			
+			response.json(createResponse("Goodbye"));
+			break;
 
 	}
-
 }
 
 
