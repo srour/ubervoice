@@ -73,7 +73,10 @@ exports.handleEchoRequest = function(request,response){
 			response.json(createResponse("Goodbye"));
 			break;
 		case 'IntentRequest':
+			
+			console.log("Intent: "+Request.request.intent);
 			console.log("Slots: "+Request.request.slots);
+
 			if(Request.request.intent == 'GetLuckyNumbers'){
 				response.json(createResponse("42"));
 			}
