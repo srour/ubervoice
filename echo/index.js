@@ -1,20 +1,29 @@
 
 
-//	respond
+/*
 
-//Store our sessions here
-var sessionStore = {};
+	var Uber = require('uber-api')({
+	server_token:'9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
+	version:'v1',
+	bearer_token:'YOUR BEARER TOKEN'
+}),
+    lat = 36,
+    lon = -94;
 
-
-var Uber = require('node-uber');
-
-var uber = new Uber({
-  client_id: 'tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6',
-  client_secret: 'GFbj58hxhLGY7Esuvn2kKkYyVV2a1iAg4VACl5d-',
-  server_token: '9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
-  redirect_uri: 'REDIRECT URL',
-  name: 'SrourEchoFun'
+Uber.getProducts(lat, lon, function(error, response) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(response);
+  }
 });
+
+Uber.getMe(function(err){
+	console.log(err);
+});
+
+*/
+
 
 
 var createResponse = function(outputText,endSession){
@@ -70,6 +79,7 @@ exports.handleEchoRequest = function(request,response){
 	var Request = request.body;
 
 	console.log('Request type:'+Request.request.type);
+	console.log(request.body);
 
 	switch(Request.request.type){
 		case 'LaunchRequest':
@@ -87,9 +97,11 @@ exports.handleEchoRequest = function(request,response){
 			console.log("Slots: "+Request.request.intent.slots);
 
 			switch (Request.request.intent.name){
-				
+
 				case 'GetUber':
 					//Call Uber API here
+
+
 					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
 					break;
 

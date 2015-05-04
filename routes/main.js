@@ -2,8 +2,15 @@ var path = require('path');
 var echo = require('../echo');
 
 exports.index = function(req,res){
-
-  res.sendfile(path.resolve(__dirname + '/../build/views/index.html'));
+	console.log(req.user);
+  if(!req.user){
+    console.log('User is not authenticated. Rendering welcome page.');
+    res.sendFile(path.resolve(__dirname + '/../build/views/index.html'));
+  }
+  else{
+    console.log('User is logged in!');
+    res.sendFile(path.resolve(__dirname + '/../build/views/main.html'));
+  }
   
 }
 
