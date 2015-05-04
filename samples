@@ -1,0 +1,10 @@
+GetHoroscope what is the horoscope for {pisces|Sign}
+GetHoroscope what will the horoscope for {leo|Sign} be {next tuesday|Date}
+GetHoroscope get me my horoscope
+GetLuckyNumbers what are my lucky numbers
+GetLuckyNumbers tell me my lucky numbers
+GetUber get me an uber
+GetUber get me an uber now
+GetUber help me get an uber
+GetUber get me a taxi
+GetUber I need an uber

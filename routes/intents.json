@@ -16,6 +16,10 @@
     {
       "intent": "GetLuckyNumbers",
       "slots": []
+    },
+    {
+      "intent": "GetUber",
+      "slots":[]
     }
   ]
 }

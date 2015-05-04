@@ -77,12 +77,23 @@ exports.handleEchoRequest = function(request,response){
 			console.log("Intent: "+Request.request.intent.name);
 			console.log("Slots: "+Request.request.intent.slots);
 
-			if(Request.request.intent.name == 'GetLuckyNumbers'){
-				response.json(createResponse("42"));
+			switch (Request.request.intent.name){
+				'GetLuckyNumbers':
+					response.json(createResponse("42"));
+					break;
+
+				'GetUber':
+					//Call Uber API here
+					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes"));
+					break;
+
+				default:
+					response.json(createResponse("Sorry I had trouble understanding you"));
+					break;
+
 			}
 
 			break;
-
 
 	}
 }
