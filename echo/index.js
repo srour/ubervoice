@@ -69,8 +69,7 @@ exports.handleEchoRequest = function(request,response){
 			break;
 		case 'SessionEndedRequest':
 			//Remove session from session store
-			console.log('End session reason: '+Request.response.reason);
-
+			console.log('End session reason: '+Request.request.reason);
 			response.json(createResponse("Goodbye"));
 			break;
 
