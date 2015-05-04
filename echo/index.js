@@ -84,7 +84,7 @@ exports.handleEchoRequest = function(request,response){
 
 						var Uber = require('uber-api')({
 							version:'v1',
-							bearer_token:user.accessToken
+							bearer_token:user.refreshToken
 						});
 
 						Uber.getMe(function(err){
