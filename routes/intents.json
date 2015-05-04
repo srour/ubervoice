@@ -1,24 +1,24 @@
 {
   "intents": [
     {
-      "intent": "GetHoroscope",
-      "slots": [
+      "intent": "GetUber",
+      "slots":[]
+    },
+    {
+      "intent": "UberCost",
+      "slots":[
         {
-          "name": "Sign",
+          "name": "Town",
           "type": "LITERAL"
-        },
-        {
-          "name": "Date",
-          "type": "DATE"
         }
       ]
     },
     {
-      "intent": "GetLuckyNumbers",
-      "slots": []
+      "intent":"UberSurge",
+      "slots":[]
     },
     {
-      "intent": "GetUber",
+      "intent":"WhereUber",
       "slots":[]
     }
   ]

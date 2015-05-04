@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UberVoice</title>
+    <link href="/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+  <body>
+
+  <div id="loginDiv" class="modal hide" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <form class="form-signin" action="/login" method="post">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h2 class="form-signin-heading">Favens login</h2>
+
+        <div id='authError' class="alert">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Warning!</strong> Incorrect username and password. 
+        </div>
+
+      </div>
+      <div class="modal-body">
+        <input required type="email" name="username" class="input-block-level" placeholder="E-mail">
+        <input required type="password" name="password" class="input-block-level" placeholder="Password">
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit">Login</button> 
+        <a href="/" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+        
+      </div>
+    </form>
+  </div>
+
+    <div class='container-fluid'>
+
+      <!--div class='row-fluid'>
+        <div class='span1 offset11'>
+          <button href='#loginDiv' class="btn btn-primary" data-toggle="modal">Login</button>
+        </div>
+      </div-->
+
+      <div class="row-fluid">
+
+        <div class='span12'>
+          <h1 id='frontTypography' class='text-center'>Favens</h1>
+
+          <p class="lead text-center">Share your favorite places</p>
+          <p><p>
+        </div>
+      </div>
+
+      <div class='row-fluid'>
+        <div class='span4'> 
+          <img src="/images/paris_cafe.jpg" class="img-rounded"></a>
+      </div>
+        
+        <div class='span4'>
+
+          <li><p class='lead'>List your favorite places</p><p>
+          <li><p class='lead'>Discover your friend's favorite places</p><p>
+          <li><p class='lead'>Share your favorites with your friends</p>
+
+
+        </div>
+        <div class='span4'
+            <p>
+          <p class='lead'>
+          Signing up is <b>free</b> and <b>easy</b>!
+        </p>
+          <p>
+
+
+<form class="form-inline" action="/signup" method="post">
+          
+          <div class="control-group">
+            <label class="control-label" for="inputName">First name</label>
+            <div class="controls">
+              <input required name="firstname" type="text" id="inputFirstName" placeholder="Jane" value="">
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label class="control-label" for="inputEmail">Last name</label>
+            <div class="controls">
+                <input required name="lastname" type="text" id="inputEmail" placeholder="Smith" value="">
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="inputNote">E-mail</label>
+            <div class="controls">
+                <input required name="emailaddress" type="text" id="inputMessage" placeholder='jane@smithfamily.com' value=""/>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label class="control-label" for="inputNote">Password</label>
+            <div class="controls">
+                <input required name="password" type="password" id="inputPassword" placeholder='**********' value=""/>
+            </div>
+          </div>
+
+
+          <div>
+            
+            <button class="btn btn-success" type="submit">Get started</button><p><p>
+
+            <p>
+            <p class='lead'>Already have an account? </p><button href='#loginDiv' class="btn btn-primary" data-toggle="modal">Login</button>
+          </div>
+
+
+        </form>
+
+
+          <!--form class="form-inline" action="/signup" method="post">
+            <label>First Name</label>
+            <input required type="text" name="firstname" placeholder='First name' class="span6"><p>
+            <label>Last Name</label>
+            <input required type="text" name="lastname" placeholder='Last name' class="span6"><p><p>
+
+            <label>E-mail</label>
+            <input required type="email" name="emailaddress" placeholder='ex: joe@gmail.com' class="span6"><p>
+            <label>Password</label>
+            <input required type="password" name="password" placeholder='Password' class="span6">
+
+          <div>
+            
+            <button class="btn btn-success" type="submit">Get started</button><p><p>
+
+            <p>
+            <p class='lead'>Already have an account? </p><button href='#loginDiv' class="btn btn-primary" data-toggle="modal">Login</button>
+          </div>
+
+          </form-->
+            
+  
+
+        
+    </div>
+
+    <div class='row-fluid'>
+        
+        <div class='span12'>
+          <hr>
+        <p>
+        <p class="text-center">
+          <a href='about.html'>About</a> / <a href='http://blog.favens.com'>Blog</a> / <a href="mailto:support@favens.com">Contact</a>
+        </p>
+        <p class="text-center">(c) 2014 Favens Inc.</p>
+    </div>
+  </div>
+  </div>
+
+
+    <script src="/lib/jquery/jquery.js"></script>
+    <script src="/bootstrap/bootstrap.min.js"></script>
+
+    <script>
+
+    $(document).ready(function() {
+
+
+    });
+    
+
+    function signupUser(){
+
+        $.post('/signup',{
+                firstname : $('#firstname').val(),
+                lastname : $('#lastname').val(),
+                email : $('#emailaddress').val(),
+                password : $('#password').val(),
+                
+        },function(data){
+                console.log("Response was:"+data);
+                
+                        
+        });
+
+    }
+    </script>
+
+
+  </body>
+</html>

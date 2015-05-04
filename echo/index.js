@@ -6,9 +6,18 @@
 var sessionStore = {};
 
 
+var Uber = require('node-uber');
+
+var uber = new Uber({
+  client_id: 'tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6',
+  client_secret: 'GFbj58hxhLGY7Esuvn2kKkYyVV2a1iAg4VACl5d-',
+  server_token: '9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
+  redirect_uri: 'REDIRECT URL',
+  name: 'SrourEchoFun'
+});
 
 
-var createResponse = function(outputText){
+var createResponse = function(outputText,endSession){
 	/*
 
 {
@@ -49,7 +58,7 @@ var createResponse = function(outputText){
 			"subtitle":"string",
 			"content":"string"
 		},
-		"shouldEndSession": false
+		"shouldEndSession": endSession
 	};
 
 	console.log(response);
@@ -65,7 +74,7 @@ exports.handleEchoRequest = function(request,response){
 	switch(Request.request.type){
 		case 'LaunchRequest':
 			console.log("RequestID: "+Request.request.requestId);
-			response.json(createResponse("Hello"));
+			response.json(createResponse("Say get me an uber to order an Uber",false));
 			break;
 		case 'SessionEndedRequest':
 			//Remove session from session store
@@ -78,13 +87,10 @@ exports.handleEchoRequest = function(request,response){
 			console.log("Slots: "+Request.request.intent.slots);
 
 			switch (Request.request.intent.name){
-				case 'GetLuckyNumbers':
-					response.json(createResponse("42"));
-					break;
-
+				
 				case 'GetUber':
 					//Call Uber API here
-					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes"));
+					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
 					break;
 
 				default:
