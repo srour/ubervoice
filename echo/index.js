@@ -78,11 +78,11 @@ exports.handleEchoRequest = function(request,response){
 			console.log("Slots: "+Request.request.intent.slots);
 
 			switch (Request.request.intent.name){
-				'GetLuckyNumbers':
+				case 'GetLuckyNumbers':
 					response.json(createResponse("42"));
 					break;
 
-				'GetUber':
+				case 'GetUber':
 					//Call Uber API here
 					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes"));
 					break;
