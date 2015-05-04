@@ -9,29 +9,20 @@
     "start": "node uber.js"
   },
   "engines": {
-    "node": "0.12.x",
-    "npm":"^2.7.4"
+    "node": "*",
+    "npm":"*"
   },
   "dependencies": {
-    "express": "~3.2.6",
+    "express": "*",
     "async": "*",
     "request": "*",
     "colors":"*",
     "express-logger":"*",
     "ejs":"*",
     "grunt": "*",
-    "grunt-processhtml": "*",
-    "grunt-contrib-concat": "*",
     "grunt-contrib-copy": "*",
-    "grunt-contrib-cssmin": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-bower-task": "*",
-    "grunt-contrib-clean": "*",
     "grunt-asciify": "*",
-    "grunt-preprocess": "*",
-    "bower": "*"
+    "body-parser":"*"
   },
   "gitHead": "db27d75dc4dd04056a2871cd2c8f09859bad5b62",
   "readmeFilename": "README.md",
@@ -47,6 +38,6 @@
   ],
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/srour/friendations/issues"
+    "url": "https://github.com/srour/ubervoice/issues"
   }
 }

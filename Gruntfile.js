@@ -26,8 +26,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-asciify');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  // Default task(s).
-  //grunt.registerTask('default', ['asciify','clean', 'bower', 'uglify','copy']);
   grunt.registerTask('default', ['asciify','copy']);
   grunt.registerTask('heroku', ['copy']);
 };
