@@ -8,6 +8,8 @@ exports.index = function(req,res){
 
 exports.startSession = function(req,res){
 
-	console.log(req);
-	res.end({});
+	console.log(req.body);
+
+	//var request = JSON.parse(req.)
+	res.end();
 }
