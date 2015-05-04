@@ -22,6 +22,10 @@
       "slots":[]
     },
     {
+      "intent":"Disconnect",
+      "slots":[]
+    },
+    {
       "intent":"Pair",
       "slots":[
         {

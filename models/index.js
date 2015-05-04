@@ -29,7 +29,8 @@ var userSchema = mongoose.Schema({
   uber_id:String,
   promo_code:String,
   provider:String,
-  setupCode:String
+  setupCode:String,
+  amazon_id:String
 });
 
 userSchema.plugin(findOrCreate);
