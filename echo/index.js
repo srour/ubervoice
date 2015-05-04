@@ -1,31 +1,24 @@
 
 
-module.exports = function() {
-
 //	respond
-	
-	var createResponse = function(){
-		var response = {};
 
-		return response;
-	}
-
-	exports.handleEchoRequest = function(request,response){
-		var Request = request.body;
-
-		console.log('Request type:'+Request.request.type);
-
-		if(Request.request.type == 'LaunchRequest'){
-			console.log(Request.request.requestId);
-		}
-
-		response.end(createResponse());
-
-	}
-
-
+var createResponse = function(){
+	var response = {};
+	return response;
 }
 
+exports.handleEchoRequest = function(request,response){
+	var Request = request.body;
+
+	console.log('Request type:'+Request.request.type);
+
+	if(Request.request.type == 'LaunchRequest'){
+		console.log(Request.request.requestId);
+	}
+
+	response.end(createResponse());
+
+}
 
 
 /* 

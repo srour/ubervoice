@@ -8,6 +8,7 @@ exports.index = function(req,res){
 }
 
 exports.handleEchoRequest = function(req,res){
+	console.log(echo.handleEchoRequest);
 	echo.handleEchoRequest(req,res);
 
 }
