@@ -2,8 +2,52 @@
 
 //	respond
 
-var createResponse = function(){
+var createResponse = function(outputText){
+	/*
+
+{
+  "version": "string",
+  "sessionAttributes": {
+    "string": object
+  },
+  "response": {
+    "outputSpeech": {
+      "type": "string",
+      "text": "string"
+    },
+    "card": {
+      "type": "string",
+      "title": "string",
+      "subtitle": "string",
+      "content": "string"
+    },
+    "shouldEndSession": boolean
+  }
+}
+
+	*/
+
 	var response = {};
+	response.version = "1.0";
+	response.sessionAttributes = {
+		"test":"foobar"
+	};
+	response.response = {
+		"outputSpeech" : {
+			"type":"string",
+			"text":outputText
+		},
+		"card" : {
+			"type":"string",
+			"title":"card title",
+			"subtitle":"string",
+			"content":"string"
+		},
+		"shouldEndSession": false
+	};
+
+	console.log(response);
+	
 	return response;
 }
 
@@ -13,7 +57,9 @@ exports.handleEchoRequest = function(request,response){
 	console.log('Request type:'+Request.request.type);
 
 	if(Request.request.type == 'LaunchRequest'){
-		console.log(Request.request.requestId);
+		console.log("RequestID: "+Request.request.requestId);
+		response.end(createResponse("Hello"));
+
 	}
 
 	response.end(createResponse());
@@ -73,6 +119,28 @@ exports.createResponse = function(data){
 
 	return data;
 }
+
+
+{
+  "version": "string",
+  "sessionAttributes": {
+    "string": object
+  },
+  "response": {
+    "outputSpeech": {
+      "type": "string",
+      "text": "string"
+    },
+    "card": {
+      "type": "string",
+      "title": "string",
+      "subtitle": "string",
+      "content": "string"
+    },
+    "shouldEndSession": boolean
+  }
+}
+
 
 */
 
