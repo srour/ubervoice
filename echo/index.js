@@ -1,4 +1,5 @@
 
+var util = require('util');
 
 /*
 
@@ -94,7 +95,7 @@ exports.handleEchoRequest = function(request,response){
 		case 'IntentRequest':
 			
 			console.log("Intent: "+Request.request.intent.name);
-			console.log("Slots: "+Request.request.intent.slots);
+			console.log("Slots: "+util.inspect(Request.request.intent.slots));
 
 			switch (Request.request.intent.name){
 
