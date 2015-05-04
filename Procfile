@@ -1,1 +1,1 @@
-uber: node uber.js
+web: node uber.js
