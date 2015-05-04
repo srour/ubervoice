@@ -58,11 +58,9 @@ exports.handleEchoRequest = function(request,response){
 
 	if(Request.request.type == 'LaunchRequest'){
 		console.log("RequestID: "+Request.request.requestId);
-		response.end(createResponse("Hello"));
+		response.json(createResponse("Hello"));
 
 	}
-
-	response.json(createResponse());
 
 }
 
