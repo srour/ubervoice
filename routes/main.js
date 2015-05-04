@@ -16,7 +16,7 @@ exports.startSession = function(req,res){
 
 exports.createResponse = function(data){
 
-	return '{
+	return "{
   "version": "1.0",
   "sessionAttributes": {
     "supportedHoriscopePeriods": {
@@ -38,6 +38,6 @@ exports.createResponse = function(data){
     },
     "shouldEndSession": true
   }
-}';
+}";
 
 }
