@@ -72,6 +72,14 @@ exports.handleEchoRequest = function(request,response){
 			console.log('End session reason: '+Request.request.reason);
 			response.json(createResponse("Goodbye"));
 			break;
+		case 'IntentRequest':
+			console.log("Slots: "+Request.request.slots);
+			if(Request.request.intent == 'GetLuckyNumbers'){
+				response.json(createResponse("42"));
+			}
+
+			break;
+
 
 	}
 }
