@@ -2,16 +2,8 @@
 var util = require('util');
 var User = require('../models').User;
 
-/*
 
-	var Uber = require('uber-api')({
-	server_token:'9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
-	version:'v1',
-	bearer_token:'YOUR BEARER TOKEN'
-}),
-    lat = 36,
-    lon = -94;
-
+	/*
 Uber.getProducts(lat, lon, function(error, response) {
   if (error) {
     console.log(error);
@@ -19,45 +11,19 @@ Uber.getProducts(lat, lon, function(error, response) {
     console.log(response);
   }
 });
-
-Uber.getMe(function(err){
-	console.log(err);
-});
-
 */
 
 
 
 var createResponse = function(outputText,endSession){
-	/*
-
-{
-  "version": "string",
-  "sessionAttributes": {
-    "string": object
-  },
-  "response": {
-    "outputSpeech": {
-      "type": "string",
-      "text": "string"
-    },
-    "card": {
-      "type": "string",
-      "title": "string",
-      "subtitle": "string",
-      "content": "string"
-    },
-    "shouldEndSession": boolean
-  }
-}
-
-	*/
 
 	var response = {};
 	response.version = "1.0";
+
 	response.sessionAttributes = {
 		"test":"foobar"
 	};
+
 	response.response = {
 		"outputSpeech" : {
 			"type":"PlainText",
@@ -71,8 +37,6 @@ var createResponse = function(outputText,endSession){
 		},
 		"shouldEndSession": endSession
 	};
-
-	console.log(response);
 
 	return response;
 }
@@ -106,7 +70,7 @@ exports.handleEchoRequest = function(request,response){
 					if(Request.request.intent.slots.Code.value == 7){
 						User.findOneAndUpdate({ 'email': 'bsrour@gmail.com' }, {amazon_id:Request.session.user.userId}, function (err, user) {
   						if (err) response.json(createResponse("Sorry an error occurred" , true));
-  						response.json(createResponse("Connected with your uber account bsrour @ gmail.com" , false));
+  						response.json(createResponse("Connected with your uber account bsrour @ gmail.com. Say Get me an uber to order an Uber." , false));
 						});
 					}
 
@@ -115,9 +79,24 @@ exports.handleEchoRequest = function(request,response){
 
 				case 'GetUber':
 					//Call Uber API here
+					User.findOne({amazon_id:Request.session.user.userId},function(err,user){
+						console.log('Found authenticated Uber user:'+user);
 
+						var Uber = require('uber-api')({
+							server_token:'9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
+							version:'v1',
+							bearer_token:user.accessToken
+						});
 
-					response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
+						Uber.getMe(function(err){
+							console.log(err);
+							
+							response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
+
+						});
+
+					});
+
 					break;
 
 				default:
