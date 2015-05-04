@@ -62,7 +62,7 @@ exports.handleEchoRequest = function(request,response){
 
 	}
 
-	response.end(createResponse());
+	response.json(createResponse());
 
 }
 
