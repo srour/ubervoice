@@ -34,11 +34,11 @@ var createResponse = function(outputText){
 	};
 	response.response = {
 		"outputSpeech" : {
-			"type":"string",
+			"type":"PlainText",
 			"text":outputText
 		},
 		"card" : {
-			"type":"string",
+			"type":"Simple",
 			"title":"card title",
 			"subtitle":"string",
 			"content":"string"
@@ -47,7 +47,7 @@ var createResponse = function(outputText){
 	};
 
 	console.log(response);
-	
+
 	return response;
 }
 
