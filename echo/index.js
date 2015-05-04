@@ -83,7 +83,6 @@ exports.handleEchoRequest = function(request,response){
 						console.log('Found authenticated Uber user:'+user);
 
 						var Uber = require('uber-api')({
-							server_token:'9yYf7Ku4dN_aQnm-Bqw_GORtjvjo_oTfbk82oThM',
 							version:'v1',
 							bearer_token:user.accessToken
 						});
