@@ -10,6 +10,7 @@ module.exports = function(app) {
 	app.get('/auth/uber/callback', passport.authenticate('uber', { failureRedirect: '/login' }),
   	function(req, res) {
   		console.log("Succesful auth with Uber");
+
     	// Successful authentication, redirect home.
     	if(req.user){
     		console.log("req.user is set here");
@@ -18,15 +19,7 @@ module.exports = function(app) {
   	}
   );
 
-
 	app.post('/',main.handleEchoRequest);
-
-/*
-()
-	app.get('*', function(req, res){
-		res.render('404');
-	});
-*/
 
 }
 

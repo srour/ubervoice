@@ -54,10 +54,12 @@ app.listen(config.port,function(){
 
   });
 
+  // https://login.uber.com/oauth/authorize?client_id=tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6&response_type=code&redirect_uri=http://ubervoice.herokuapp.com/auth/uber/callback
   passport.use(new uberStrategy({
     clientID: "tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6",
-    clientSecret: "GFbj58hxhLGY7Esuvn2kKkYyVV2a1iAg4VACl5d-",
+    clientSecret: "iTMZSDJGApiALb5ndNLyhi0H81WLT07117aPOPin",
     callbackURL: "https://ubervoice.herokuapp.com/auth/uber/callback"
+    //callbackURL: "http://localhost:3000/auth/uber/callback"
   },
     function(accessToken, refreshToken, profile, done) {
       console.log("Access Token: "+accessToken);
@@ -77,6 +79,7 @@ app.listen(config.port,function(){
           email:profile.email
 
         }, function (err, user) {
+          console.log(done);
         return done(err, user._id);
       });
       

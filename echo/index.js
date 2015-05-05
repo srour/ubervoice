@@ -1,18 +1,7 @@
-
 var util = require('util');
 var User = require('../models').User;
-
-
-	/*
-Uber.getProducts(lat, lon, function(error, response) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log(response);
-  }
-});
-*/
-
+var request = require('request-json');
+var client = request.createClient('https://sandbox-api.uber.com');
 
 
 var createResponse = function(outputText,endSession){
@@ -82,18 +71,25 @@ exports.handleEchoRequest = function(request,response){
 					User.findOne({amazon_id:Request.session.user.userId},function(err,user){
 						console.log('Found authenticated Uber user:'+user);
 
-						var Uber = require('uber-api')({
-							version:'v1',
-							bearer_token:user.refreshToken
-						});
+						var data = {
+							scope: 'request',
+							start_longitude: '-122.31709',
+							start_latitude:'47.613940',
+							product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
+						};
 
-						Uber.getMe(function(err){
-							console.log(err);
+						//client.headers['Authorization'] = 'Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu';
+						client.headers['Authorization'] = 'Bearer '+user.accessToken;
+
+						client.post('/v1/requests', data, function(err, res, body) {
 							
-							response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
-
+							console.log(body);
+							if(res.statusCode==202){
+								response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
+							}
+							
 						});
-
+							
 					});
 
 					break;
@@ -110,82 +106,10 @@ exports.handleEchoRequest = function(request,response){
 }
 
 
-/* 
-
- //express middleware?
-	
- var echo = require('echo');
-
- echo.
- echo.launchRequest(function(request,response){
-
-  
- });
-
- echo.intentRequest(function()
 
 
 
-// Request Format
-// LaunchRequest
-// IntentRequest
-// SessionEndedRequest
-// Response Format
 
-
-exports.createResponse = function(data){
-
-	var data = " \
-\
-	{ \'version\': '1.0', \ 
-  'sessionAttributes': { \ 
-    'supportedHoriscopePeriods': { \ 
-      'daily': true, \ 
-      'weekly': false, \ 
-      'monthly': false \
-    } \
-  }, \
-  'response': { \
-    'outputSpeech': { \
-      'type': 'PlainText', \
-      'text': 'Today will provide you a new learning opportunity.  Stick with it and the possibilities will be endless.' \
-    }, \ 
-    'card': { \
-      'type': 'Simple', \
-      'title': 'Horoscope', \
-      'subtitle': 'Virgo - Daily', \
-      'content': 'Today will provide you a new learning opportunity.  Stick with it and the possibilities will be endless.' \
-    }, \
-    'shouldEndSession': true \
-  } \
-}";
-
-	return data;
-}
-
-
-{
-  "version": "string",
-  "sessionAttributes": {
-    "string": object
-  },
-  "response": {
-    "outputSpeech": {
-      "type": "string",
-      "text": "string"
-    },
-    "card": {
-      "type": "string",
-      "title": "string",
-      "subtitle": "string",
-      "content": "string"
-    },
-    "shouldEndSession": boolean
-  }
-}
-
-
-*/
 
 
 	

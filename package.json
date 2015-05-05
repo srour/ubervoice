@@ -30,7 +30,8 @@
     "passport-uber":"*",
     "mongoose-findorcreate":"*",
     "mongoose":"*",
-    "uber-api":"*"
+    "uber-api":"*",
+    "request-json":"*"
   },
   "gitHead": "db27d75dc4dd04056a2871cd2c8f09859bad5b62",
   "readmeFilename": "README.md",

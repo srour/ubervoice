@@ -1,6 +1,8 @@
 var path = require('path');
 var echo = require('../echo');
 
+var request = require('request');
+
 exports.index = function(req,res){
   if(res)
     console.log('response object defined');
@@ -20,5 +22,5 @@ exports.index = function(req,res){
 exports.handleEchoRequest = function(req,res){
 	console.log(echo.handleEchoRequest);
 	echo.handleEchoRequest(req,res);
-
 }
+
