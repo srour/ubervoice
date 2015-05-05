@@ -56,15 +56,11 @@ exports.handleEchoRequest = function(request,response){
 				case 'Pair':
 
 					//Lookup user with that code
-					if(Request.request.intent.slots.Code.value == 7){
-						User.findOneAndUpdate({ 'email': 'bsrour@gmail.com' }, {amazon_id:Request.session.user.userId}, function (err, user) {
-  						if (err) response.json(createResponse("Sorry an error occurred" , true));
-  						response.json(createResponse("Connected with your uber account bsrour @ gmail.com. Say Get me an uber to order an Uber." , false));
-						});
-					}
+					User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
+						response.json(createResponse("Your account is now connect. Say Get me an uber to order an Uber." , false));
+					});
 
 					break;
-
 
 				case 'GetUber':
 					//Call Uber API here

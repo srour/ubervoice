@@ -1,6 +1,6 @@
 var path = require('path');
 var echo = require('../echo');
-
+var User = require('../models').User;
 var request = require('request');
 
 exports.index = function(req,res){
@@ -14,7 +14,23 @@ exports.index = function(req,res){
   }
   else{
     console.log('User is logged in!');
-    res.sendfile(path.resolve(__dirname + '/../build/views/main.html'));
+
+    if(!req.user.setupCode){
+
+      //Generate small number
+      var setupCode = randomIntInc(0,100);
+      console.log('Setup pairing code is: '+setupCode);
+
+      User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, function (err, user) {
+        res.render('main.ejs',{code: setupCode});
+      });
+
+    }
+    else{
+      res.render('main.ejs',{});
+
+    }
+
   }
   
 }
@@ -27,4 +43,8 @@ exports.handleEchoRequest = function(req,res){
 exports.logout = function(req,res){
   req.logout();
   res.redirect('/');
+}
+
+function randomIntInc (low, high) {
+    return Math.floor(Math.random() * (high - low + 1) + low);
 }

@@ -77,7 +77,6 @@ app.listen(config.port,function(){
           uber_id:profile.uuid,
           provider:profile.provider,
           email:profile.email
-
         }, function (err, user) {
           console.log(done);
         return done(err, user._id);
