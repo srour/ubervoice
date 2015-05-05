@@ -33,6 +33,11 @@ curl -H 'Authorization: Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu' 'https://api.uber
 
 curl -X "POST" "https://api.uber.com/v1/requests" -H "Content-Type: application/json" -H "Authorization: Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu" -d "{\"scope\":\"request\", \"start_longitude\":\"-122.31709\", \"start_latitude\":\"47.613940\",\"product_id\":\"6450cc0f-4d39-4473-8632-1e2c2049fefe\"}"
 
+curl -X "POST" "https://sandbox-api.uber.com/v1/requests" -H "Content-Type: application/json" -H "Authorization: Bearer x4VCKIUVbUsEYNob2zeAEVq72XeitB" -d "{\"scope\":\"request\", \"start_longitude\":\"-122.31709\", \"start_latitude\":\"47.613940\",\"product_id\":\"6450cc0f-4d39-4473-8632-1e2c2049fefe\"}"
+
+curl -X "POST" "https://api.uber.com/v1/requests" -H "Content-Type: application/json" -H "Authorization: Bearer XfJ02PbRwt6pe8gOH5v1QQtt7niB2I" -d "{\"scope\":\"request\", \"start_longitude\":\"-122.31709\", \"start_latitude\":\"47.613940\",\"product_id\":\"6450cc0f-4d39-4473-8632-1e2c2049fefe\"}"
+
+
 curl -X "POST" "https://api.uber.com/v1/requests/<REQUEST_ID>" \
   -H "Authorization: Bearer <OAUTH TOKEN>" \
   -d "{\"status\":\"accepted\"}"

@@ -5,6 +5,7 @@ var passport = require('passport');
 module.exports = function(app) {
 
 	app.get('/',main.index);
+  app.get('/logout',main.logout);
 		
 	app.get('/auth/uber', passport.authenticate('uber'));
 	app.get('/auth/uber/callback', passport.authenticate('uber', { failureRedirect: '/login' }),

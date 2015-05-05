@@ -78,8 +78,9 @@ exports.handleEchoRequest = function(request,response){
 							product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
 						};
 
-						client.headers['Authorization'] = 'Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu';
-						//client.headers['Authorization'] = 'Bearer '+user.accessToken;
+						//client.headers['Authorization'] = 'Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu';
+						console.log('Using access token: '+user.accessToken);
+						client.headers['Authorization'] = 'Bearer '+user.accessToken;
 
 						client.post('/v1/requests', data, function(err, res, body) {
 							

@@ -20,6 +20,7 @@ app.listen(config.port,function(){
   console.log("Hostname: ".bold+config.hostname+ " port: "+config.port);  
   console.log("Public directory: ".bold+config.public);
   console.log('Logfile: '.bold+config.logging.file);
+  console.log('Callback URI:'.bold+config.uberCallbackUri);
 
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
@@ -56,10 +57,9 @@ app.listen(config.port,function(){
 
   // https://login.uber.com/oauth/authorize?client_id=tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6&response_type=code&redirect_uri=http://ubervoice.herokuapp.com/auth/uber/callback
   passport.use(new uberStrategy({
-    clientID: "tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6",
-    clientSecret: "iTMZSDJGApiALb5ndNLyhi0H81WLT07117aPOPin",
-    callbackURL: "https://ubervoice.herokuapp.com/auth/uber/callback"
-    //callbackURL: "http://localhost:3000/auth/uber/callback"
+    clientID: config.uberClientId,
+    clientSecret: config.uberSecret,
+    callbackURL: config.uberCallbackUri
   },
     function(accessToken, refreshToken, profile, done) {
       console.log("Access Token: "+accessToken);

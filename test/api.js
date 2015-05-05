@@ -8,7 +8,7 @@ var data = {
   product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
 };
 
-client.headers['Authorization'] = 'Bearer 2NCvx3hZIun26qVA0xhE4bXJZhf7bu';
+client.headers['Authorization'] = 'Bearer ZE1efBx1GAH5eraLJ11zloNWuZrfiY';
 
 client.post('/v1/requests', data, function(err, res, body) {
 	console.log(body);
