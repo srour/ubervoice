@@ -82,15 +82,16 @@ app.listen(config.port,function(){
             email:profile.email
           });
           user.save(function(err,user){
+            console.log('Created new user: '+user);
             return done(err, user._id);
           });
 
         }
-        if(user){
+        else if(user){
           console.log('Existing user found. Updated access token:'+user);
           return done(err, user._id);
         }
-        if(err){
+        else{
           console.log('Error occurred:'+err);
           return done(err,undefined);
         }
