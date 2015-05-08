@@ -66,6 +66,50 @@ app.listen(config.port,function(){
       console.log("Refresh Token: "+refreshToken);
       console.log("Profile: "+util.inspect(profile));
 
+      //Find an existing user, and if found update the access token
+      User.findOneAndUpdate({ 'email': profile.email }, {accessToken:accessToken}, function (err, user) {
+        if(!user){
+          //if user is not found:
+          var user = new User({ 
+            uber_id: profile.id,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+            first_name:profile.first_name,
+            last_name:profile.last_name,
+            promo_code:profile.promo_code,
+            uber_id:profile.uuid,
+            provider:profile.provider,
+            email:profile.email
+          });
+          user.save(function(err,user){
+            return done(err, user._id);
+          });
+
+        }
+        if(user){
+          console.log('Existing user found. Updated access token:'+user);
+          return done(err, user._id);
+        }
+        if(err){
+          console.log('Error occurred:'+err);
+          return done(err,undefined);
+        }
+
+      });
+      
+    }
+
+  ));
+
+  //Configure routes
+  require('./routes')(app);
+
+  console.log("ubervoice: ready to accept requests".green);
+
+});
+
+
+/*
       User.findOrCreate(
         { 
           uber_id: profile.id,
@@ -85,17 +129,5 @@ app.listen(config.port,function(){
             console.log('User created: ');
             console.log(user);  
           }
-          
-        return done(err, user._id);
-      });
-      
-    }
+*/
 
-  ));
-
-  //Configure routes
-  require('./routes')(app);
-
-  console.log("ubervoice: ready to accept requests".green);
-
-});
