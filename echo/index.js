@@ -57,7 +57,7 @@ exports.handleEchoRequest = function(request,response){
 
 					//Lookup user with that code
 					User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
-						response.json(createResponse("Your account is now connect. Say Get me an uber to order an Uber." , false));
+						response.json(createResponse("Your account is now connected." , true));
 					});
 
 					break;

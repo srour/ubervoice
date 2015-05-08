@@ -78,7 +78,14 @@ app.listen(config.port,function(){
           provider:profile.provider,
           email:profile.email
         }, function (err, user) {
-          console.log(done);
+          if(err){
+            console.log("Error finding/creating user: "+err);
+          }
+          else{
+            console.log('User created: ');
+            console.log(user);  
+          }
+          
         return done(err, user._id);
       });
       
