@@ -67,7 +67,7 @@ exports.handleEchoRequest = function(request,response){
 					User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
 						if(!user){
 							console.log("Error pairing! code was: "+Request.request.intent.slots.Code.value);
-							response.json(createResponse("I could not find that pairing code. Try pairing again",false);
+							response.json(createResponse("I could not find that pairing code. Try pairing again",false));
 						}
 						else{
 							response.json(createResponse("Pairing complete. Say Get me an Uber to order an Uber" , false));	
