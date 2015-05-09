@@ -80,7 +80,8 @@ exports.handleEchoRequest = function(request,response){
 				case 'GetUber':
 					//Call Uber API here
 					User.findOne({amazon_id:Request.session.user.userId},function(err,user){
-						if(err){
+						if(err) response.json(createResponse("Sorry an error occurred. Try again later."));
+						else if(!user){
 							console.log('No user found. Pairing operating has not happened yet.');
 							console.log('AmazonUserId: '+Request.session.user.userId);
 							response.json(createResponse('You need to pair with your Uber account first.'));
