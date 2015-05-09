@@ -15,7 +15,7 @@ exports.index = function(req,res){
   else{
     console.log('User is logged in!');
 
-    if(!req.user.setupCode){
+//    if(!req.user.setupCode){
 
       //Generate small number
       var setupCode = randomIntInc(0,100);
@@ -25,10 +25,10 @@ exports.index = function(req,res){
         res.render('main.ejs',{code: setupCode});
       });
 
-    }
-    else{
-      res.render('main.ejs',{code: undefined});
-    }
+  //  }
+    //else{
+     // res.render('main.ejs',{code: req.user.setupCode});
+    //}
 
   }
   
