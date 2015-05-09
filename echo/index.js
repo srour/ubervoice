@@ -40,7 +40,7 @@ exports.handleEchoRequest = function(request,response){
 		case 'LaunchRequest':
 			console.log("RequestID: "+Request.request.requestId);
 			User.findOne({amazon_id:Request.session.user.userId},function(err,user){
-				if(err){
+				if(!user){
 					response.json(createResponse('Pair your Uber account on the UberVoice web site first.',true));
 				}
 				else{
@@ -65,9 +65,9 @@ exports.handleEchoRequest = function(request,response){
 
 					//Lookup user with that code
 					User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
-						if(err){
+						if(!user){
 							console.log("Error pairing! code was: "+Request.request.intent.slots.Code.value);
-							response.json(createResponse("I could not found that pairing code. I heard code "+Request.request.intent.slots.Code.value)+" try pairing again",false);
+							response.json(createResponse("I could not find that pairing code. I heard code "+Request.request.intent.slots.Code.value)+" try pairing again",false);
 						}
 						else{
 							response.json(createResponse("Pairing complete. Say Get me an Uber to order an Uber" , false));	
