@@ -89,6 +89,9 @@ app.listen(config.port,function(){
         }
         else if(user){
           console.log('Existing user found. Updated access token:'+user);
+
+          //bug here? didnt updated access token
+
           return done(err, user._id);
         }
         else{
