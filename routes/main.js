@@ -27,8 +27,7 @@ exports.index = function(req,res){
 
     }
     else{
-      res.render('main.ejs',{});
-
+      res.render('main.ejs',{code: undefined});
     }
 
   }

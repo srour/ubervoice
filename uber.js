@@ -67,7 +67,7 @@ app.listen(config.port,function(){
       console.log("Profile: "+util.inspect(profile));
 
       //Find an existing user, and if found update the access token
-      User.findOneAndUpdate({ 'email': profile.email }, {accessToken:accessToken}, function (err, user) {
+      User.findOneAndUpdate({ 'email': profile.email }, {accessToken:accessToken}, {new:true} function (err, user) {
         if(!user){
           //if user is not found:
           var user = new User({ 
@@ -90,7 +90,6 @@ app.listen(config.port,function(){
         else if(user){
           console.log('Existing user found. Updated access token:'+user);
 
-          //bug here? didnt updated access token
 
           return done(err, user._id);
         }
