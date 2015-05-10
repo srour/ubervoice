@@ -96,7 +96,7 @@ exports.handleEchoRequest = function(request,response){
 											responseText+= 'They will be here in '+body.eta+' minutes'.
 							 				response.json(createResponse(responseText));
 										}
-										else if(body.status=='processing'{
+										else if(body.status=='processing'){
 											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
 										}
 										else{
