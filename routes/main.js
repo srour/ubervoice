@@ -15,20 +15,13 @@ exports.index = function(req,res){
   else{
     console.log('User is logged in!');
 
-//    if(!req.user.setupCode){
+    //Generate small number
+    var setupCode = randomIntInc(0,10);
+    console.log('Setup pairing code is: '+setupCode);
 
-      //Generate small number
-      var setupCode = randomIntInc(0,100);
-      console.log('Setup pairing code is: '+setupCode);
-
-      User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, {new:true}, function (err, user) {
-        res.render('main.ejs',{code: setupCode});
-      });
-
-  //  }
-    //else{
-     // res.render('main.ejs',{code: req.user.setupCode});
-    //}
+    User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, {new:true}, function (err, user) {
+      res.render('main.ejs',{code: setupCode});
+    });
 
   }
   

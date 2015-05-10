@@ -111,7 +111,6 @@ exports.handleEchoRequest = function(request,response){
 								else{
 									console.log('An error occurred ordering the uber: '+err);
 									console.log(body);
-									console.log(res);
 									response.json(createResponse("An occurred ordering the Uber. Try again later."));
 								}
 								

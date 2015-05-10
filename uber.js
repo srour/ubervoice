@@ -60,7 +60,7 @@ app.listen(config.port,function(){
     clientID: config.uberClientId,
     clientSecret: config.uberSecret,
     callbackURL: config.uberCallbackUri,
-    scope: 'request'
+    scope: 'request profile'
   },
     function(accessToken, refreshToken, profile, done) {
       console.log("Access Token: "+accessToken);
