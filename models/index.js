@@ -30,10 +30,12 @@ var userSchema = mongoose.Schema({
   promo_code:String,
   provider:String,
   setupCode:String,
-  amazon_id:String
+  amazon_id:String,
+  request_id:String
 });
 
 userSchema.plugin(findOrCreate);
 
 var User = mongoose.model('User', userSchema);
 module.exports.User = User;
+
