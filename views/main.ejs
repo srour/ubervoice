@@ -1,11 +1,73 @@
+<html>
+<script src="/lib/bootstrap/bootstrap.js"></script>
+<link href="/lib/bootstrap/bootstrap.css" rel="stylesheet"/>
 
-Logged in with your Uber account<p>
+<div class="container">
 
-<% if(code) { %>
-Your setup code is <%= code %><p>
-Say "Alexa, launch uber and setup with code <%= code %> "
-<% } %>
+  <div class='row'>
+    <h2>UberVoice</h2>
+    Logged in with your Uber account<p>
+  </div>
 
-<p>
+  <div class='row'>
+    <h3>Pairing</h3>
+    <% if(code) { %>
+    Your setup code is <%= code %><p>
+    Say "Alexa, launch uber and setup with code <%= code %>"
+    <% } %>
 
-<a href='/logout'>Logout</a>
+  </div>
+
+  <div class="row">
+
+    <h3>Address to have Uber go to</h3>
+     <form class="form-horizontal">
+
+            <fieldset>
+
+                <!-- address-line1 input-->
+                <div class="control-group">
+                    <label class="control-label">Street address</label>
+                    <div class="controls">
+                        <input id="address-line1" name="address-line1" type="text" placeholder="street address"
+                        class="input-xlarge">
+                    </div>
+                </div>
+
+                <!-- city input-->
+                <div class="control-group">
+                    <label class="control-label">City</label>
+                    <div class="controls">
+                        <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <!-- region input-->
+                <div class="control-group">
+                    <label class="control-label">State</label>
+                    <div class="controls">
+                        <input id="region" name="region" type="text" placeholder="state"
+                        class="input-xlarge">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+                <!-- postal-code input-->
+                <div class="control-group">
+                    <label class="control-label">Zip</label>
+                    <div class="controls">
+                        <input id="postal-code" name="postal-code" type="text" placeholder="zip code"
+                        class="input-xlarge">
+                        <p class="help-block"></p>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+
+
+
+
+
+</html>

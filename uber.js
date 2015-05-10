@@ -55,7 +55,6 @@ app.listen(config.port,function(){
 
   });
 
-  // https://login.uber.com/oauth/authorize?client_id=tzuBSK917EYVpOWD9dQhhiA1Qr18Peh6&response_type=code&redirect_uri=http://ubervoice.herokuapp.com/auth/uber/callback
   passport.use(new uberStrategy({
     clientID: config.uberClientId,
     clientSecret: config.uberSecret,
@@ -90,8 +89,6 @@ app.listen(config.port,function(){
         }
         else if(user){
           console.log('Existing user found. Updated access token:'+user);
-
-
           return done(err, user._id);
         }
         else{
@@ -112,26 +109,4 @@ app.listen(config.port,function(){
 
 });
 
-
-/*
-      User.findOrCreate(
-        { 
-          uber_id: profile.id,
-          accessToken: accessToken,
-          refreshToken: refreshToken,
-          first_name:profile.first_name,
-          last_name:profile.last_name,
-          promo_code:profile.promo_code,
-          uber_id:profile.uuid,
-          provider:profile.provider,
-          email:profile.email
-        }, function (err, user) {
-          if(err){
-            console.log("Error finding/creating user: "+err);
-          }
-          else{
-            console.log('User created: ');
-            console.log(user);  
-          }
-*/
 

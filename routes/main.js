@@ -4,13 +4,10 @@ var User = require('../models').User;
 var request = require('request');
 
 exports.index = function(req,res){
-  if(res)
-    console.log('response object defined');
-
-  
+  console.log('Rendering index..');
   if(!req.user){
     console.log('User is not authenticated. Rendering welcome page.');
-    res.sendfile(path.resolve(__dirname + '/../build/views/index.html'));
+    res.sendfile(path.resolve(__dirname + '/../build/noauth.html'));
   }
   else{
     console.log('User is logged in!');
@@ -39,4 +36,9 @@ exports.logout = function(req,res){
 
 function randomIntInc (low, high) {
     return Math.floor(Math.random() * (high - low + 1) + low);
+}
+
+exports.test = function(req,res){
+  console.log('test');
+
 }

@@ -31,7 +31,9 @@
     "mongoose-findorcreate":"*",
     "mongoose":"*",
     "uber-api":"*",
-    "request-json":"*"
+    "request-json":"*",
+    "grunt-bower-task":"*",
+    "grunt-contrib-clean":"*"
   },
   "gitHead": "db27d75dc4dd04056a2871cd2c8f09859bad5b62",
   "readmeFilename": "README.md",

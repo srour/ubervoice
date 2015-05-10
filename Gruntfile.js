@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {src: ['views/*'], dest: 'build/views/',flatten:true,expand:true}
+          {src: ['views/*.html'], dest: 'build/',flatten:true,expand:true}
         ]
       }
     },
@@ -20,12 +20,27 @@ module.exports = function(grunt) {
           log:true
         }
       }
-    }
+    },
+    bower: {
+      install: {
+        options: {
+          targetDir: 'build/lib',
+          layout: 'byType',
+          install: true,
+          verbose: true,
+          cleanTargetDir: true,
+          cleanBowerDir: true
+          }
+      }
+    },
+    clean: ["build/*"],
   });
 
   grunt.loadNpmTasks('grunt-asciify');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-bower-task');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('default', ['asciify','copy']);
-  grunt.registerTask('heroku', ['copy']);
+  grunt.registerTask('heroku', ['bower','copy']);
 };
