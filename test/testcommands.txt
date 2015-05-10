@@ -30,7 +30,7 @@ curl -X "POST" "https://sandbox-api.uber.com/v1/requests" -H "Content-Type: appl
 
 
 Change status
-curl -X "PUT" "https://sandbox-api.uber.com/v1/sandbox/requests/8c512a89-96f9-4054-9e5c-60955b8847e3" -H "Authorization: Bearer L81AVAkfHkPUUTUECoOeQ2P8cMV7YU"   -d "{\"status\":\"accepted\"}" -H "Content-Type: application/json"
+curl -X "PUT" "https://sandbox-api.uber.com/v1/sandbox/requests/e5c81582-918c-4c20-a437-463c31953f77" -H "Authorization: Bearer 7QvItasZcT7DIaZxr7HLovDQn13A8M"   -d "{\"status\":\"accepted\"}" -H "Content-Type: application/json"
 
 Get status
 curl -X "GET" "https://api.uber.com/v1/requests/8c512a89-96f9-4054-9e5c-60955b8847e3" -H "Authorization: Bearer L81AVAkfHkPUUTUECoOeQ2P8cMV7YU" -H "Content-Type: application/json"
