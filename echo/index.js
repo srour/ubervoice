@@ -90,6 +90,7 @@ exports.handleEchoRequest = function(request,response){
 								client.get('/v1/requests/'+user.request_id, function(err, res, body) {
 										console.log('Request status');
 										console.log(body);
+										response.json(createResponse("Your uber status is in the log"));
 									});
 							}
 							break;
