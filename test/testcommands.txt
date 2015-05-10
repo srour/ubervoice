@@ -29,15 +29,9 @@ curl -X "POST" "https://api.uber.com/v1/requests" -H "Content-Type: application/
 curl -X "POST" "https://sandbox-api.uber.com/v1/requests" -H "Content-Type: application/json" -H "Authorization: Bearer r69dZM1pycDLIHeKaiF5vJ29cc5Tn6" -d "{\"scope\":\"profile history request history_lite\", \"start_longitude\":\"-122.31709\", \"start_latitude\":\"47.613940\",\"product_id\":\"6450cc0f-4d39-4473-8632-1e2c2049fefe\"}"
 
 
-curl -X "POST" "https://api.uber.com/v1/requests/<REQUEST_ID>" \
-  -H "Authorization: Bearer <OAUTH TOKEN>" \
-  -d "{\"status\":\"accepted\"}"
+Change status
+curl -X "PUT" "https://sandbox-api.uber.com/v1/sandbox/requests/8c512a89-96f9-4054-9e5c-60955b8847e3" -H "Authorization: Bearer L81AVAkfHkPUUTUECoOeQ2P8cMV7YU"   -d "{\"status\":\"accepted\"}" -H "Content-Type: application/json"
 
+Get status
+curl -X "GET" "https://api.uber.com/v1/requests/8c512a89-96f9-4054-9e5c-60955b8847e3" -H "Authorization: Bearer L81AVAkfHkPUUTUECoOeQ2P8cMV7YU" -H "Content-Type: application/json"
 
-POST /v1/requests
-
-product_id	string	The unique ID of the product being requested.
-start_latitude	float	The beginning or "pickup" latitude.
-start_longitude	float	The beginning or "pickup" longitude.
-end_latitude	float	The final or destination latitude.
-end_longitude	float	The final or destination longitude.

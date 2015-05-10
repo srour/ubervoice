@@ -31,7 +31,11 @@ var userSchema = mongoose.Schema({
   provider:String,
   setupCode:String,
   amazon_id:String,
-  request_id:String
+  request_id:String,
+  street_address:String,
+  city_address:String,
+  state_address:String,
+  zipcode_address:String
 });
 
 userSchema.plugin(findOrCreate);

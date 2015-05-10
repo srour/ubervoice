@@ -90,7 +90,19 @@ exports.handleEchoRequest = function(request,response){
 								client.get('/v1/requests/'+user.request_id, function(err, res, body) {
 										console.log('Request status');
 										console.log(body);
-										response.json(createResponse("Your uber status is in the log"));
+
+										if(body.status == 'accepted'){
+											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+'. ';
+											responseText+= 'They will be here in '+body.eta+' minutes'.
+							 				response.json(createResponse(responseText));
+										}
+										else if(body.status=='processing'{
+											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
+										}
+										else{
+											response.json(createResponse("Check the log"));
+										}
+										
 									});
 							}
 							break;

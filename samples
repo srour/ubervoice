@@ -5,9 +5,9 @@ GetUber get me a taxi
 GetUber I need an uber
 UberCost how much would it cost me to go to {ballard|Town}
 UberSurge Is it surge pricing right now?
-WhereUber where is my uber
-WhereUber when is my uber going to get here
-WhereUber how far away is my uber
+Status where is my uber
+Status when is my uber going to get here
+Status how far away is my uber
 Pair the code is {5|Code}
 Pair connect with code {4|Code}
 Pair my code is {1|Code}

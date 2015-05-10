@@ -1,0 +1,38 @@
+{
+  "intents": [
+    {
+      "intent": "GetUber",
+      "slots":[]
+    },
+    {
+      "intent": "UberCost",
+      "slots":[
+        {
+          "name": "Town",
+          "type": "LITERAL"
+        }
+      ]
+    },
+    {
+      "intent":"UberSurge",
+      "slots":[]
+    },
+    {
+      "intent":"Disconnect",
+      "slots":[]
+    },
+    {
+      "intent":"Status",
+      "slots":[]
+    },
+    {
+      "intent":"Pair",
+      "slots":[
+        {
+          "name": "Code",
+          "type": "NUMBER"
+        }
+      ]
+    }
+  ]
+}
