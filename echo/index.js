@@ -93,7 +93,7 @@ exports.handleEchoRequest = function(request,response){
 
 										if(body.status == 'accepted'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+'. ';
-											responseText+= 'They will be here in '+body.eta+' minutes'.
+											responseText.concat(' They will be here in '+body.eta+' minutes');
 											console.log(response);
 											console.log(responseText);
 							 				response.json(createResponse(responseText));
