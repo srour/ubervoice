@@ -1,6 +1,29 @@
 <html>
+<title>UberVoice</title>
+
+<head>
+<script src="/lib/jquery/jquery.js"/>
 <script src="/lib/bootstrap/bootstrap.js"></script>
 <link href="/lib/bootstrap/bootstrap.css" rel="stylesheet"/>
+
+<script>
+function save(){
+
+  var data = {
+    address:$('#address').val(),
+    city:$('#city').val(),
+    state:$('#state').val(),
+    zipcode:$('#zipcode').val(),
+  };
+
+  $.post('/updateUserInfo',data,function(result){
+    console.log('Response from server was: '+result);
+  });
+
+}
+</script>
+
+</head>
 
 <div class="container">
 
@@ -27,10 +50,10 @@
 
                 <!-- address-line1 input-->
                 <div class="control-group">
-                    <label class="control-label">Street address</label>
+                    <label class="control-label">Street</label>
                     <div class="controls">
-                        <input id="address-line1" name="address-line1" type="text" placeholder="street address"
-                        class="input-xlarge">
+                        <input id="address" name="address" type="text" placeholder="street address"
+                        class="input-xlarge" value='<%= street_address %>' >
                     </div>
                 </div>
 
@@ -38,7 +61,7 @@
                 <div class="control-group">
                     <label class="control-label">City</label>
                     <div class="controls">
-                        <input id="city" name="city" type="text" placeholder="city" class="input-xlarge">
+                        <input id="city" name="city" type="text" placeholder="city" class="input-xlarge" value='<%= city_address %>' >
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -46,8 +69,8 @@
                 <div class="control-group">
                     <label class="control-label">State</label>
                     <div class="controls">
-                        <input id="region" name="region" type="text" placeholder="state"
-                        class="input-xlarge">
+                        <input id="state" name="state" type="text" placeholder="state"
+                        class="input-xlarge" value='<%= state_address %>' >
                         <p class="help-block"></p>
                     </div>
                 </div>
@@ -55,15 +78,15 @@
                 <div class="control-group">
                     <label class="control-label">Zip</label>
                     <div class="controls">
-                        <input id="postal-code" name="postal-code" type="text" placeholder="zip code"
-                        class="input-xlarge">
+                        <input id="zipcode" name="zipcode" type="text" placeholder="zip code"
+                        class="input-xlarge" value='<%= zipcode_address %>' >
                         <p class="help-block"></p>
                     </div>
                 </div>
             </fieldset>
         </form>
 
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary" onclick="save()">Save</button>
   </div>
 
 

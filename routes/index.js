@@ -20,4 +20,6 @@ module.exports = function(app) {
   	}
   );
 
+  app.post('/updateUserInfo',main.updateUserInfo);
+
 }
