@@ -92,10 +92,8 @@ exports.handleEchoRequest = function(request,response){
 										console.log(body);
 
 										if(body.status == 'accepted'){
-											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+'. ';
-											responseText.concat(' They will be here in '+body.eta+' minutes');
-											console.log(response);
-											console.log(responseText);
+											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
+
 							 				response.json(createResponse(responseText));
 										}
 										else if(body.status=='processing'){
