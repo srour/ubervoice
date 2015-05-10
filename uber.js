@@ -59,7 +59,8 @@ app.listen(config.port,function(){
   passport.use(new uberStrategy({
     clientID: config.uberClientId,
     clientSecret: config.uberSecret,
-    callbackURL: config.uberCallbackUri
+    callbackURL: config.uberCallbackUri,
+    scope: 'request'
   },
     function(accessToken, refreshToken, profile, done) {
       console.log("Access Token: "+accessToken);

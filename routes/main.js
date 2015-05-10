@@ -21,7 +21,7 @@ exports.index = function(req,res){
       var setupCode = randomIntInc(0,100);
       console.log('Setup pairing code is: '+setupCode);
 
-      User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, function (err, user) {
+      User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, {new:true}, function (err, user) {
         res.render('main.ejs',{code: setupCode});
       });
 

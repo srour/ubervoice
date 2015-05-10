@@ -105,7 +105,14 @@ exports.handleEchoRequest = function(request,response){
 								
 								console.log(body);
 								if(res.statusCode==202){
+									console.log('Uber ordered: '+body);
 									response.json(createResponse("Your uber is on its way. It will be here in 10 minutes",true));
+								}
+								else{
+									console.log('An error occurred ordering the uber: '+err);
+									console.log(body);
+									console.log(res);
+									response.json(createResponse("An occurred ordering the Uber. Try again later."));
 								}
 								
 							});
