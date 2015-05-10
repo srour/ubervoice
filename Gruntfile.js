@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     copy: {
       main: {
         files: [
-          {src: ['views/*.html'], dest: 'build/',flatten:true,expand:true}
+          {src: ['views/*'], dest: 'build/',flatten:true,expand:true}
         ]
       }
     },
