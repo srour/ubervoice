@@ -82,15 +82,15 @@ exports.handleEchoRequest = function(request,response){
 						case 'Cancel':
 							console.log("Cancel uber request");
 							if(!user.request_id){
-								response.json(createResponse("You have not requested an uber."));
+								response.json(createResponse("You have not requested an uber."),true);
 							}
 							else{
 
 								client.del('/v1/requests/'+user.request_id,function(err,res,body){
 									console.log("Cancelled uber request: "+user.request_id);
-									response.json(createResponse("Canceled your request for an Uber."),true);
 									user.request_id = undefined;
 									user.save();
+									response.json(createResponse("Cancelled your request for an Uber."),true);
 								});
 							}
 
