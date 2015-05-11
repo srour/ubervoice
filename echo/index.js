@@ -41,7 +41,26 @@ exports.handleEchoRequest = function(request,response){
 		else if(!user){
 			console.log('No user found. Pairing operating has not happened yet.');
 			console.log('AmazonUserId: '+Request.session.user.userId);
-			response.json(createResponse('You need to pair with your Uber account first.'));
+
+			if(Request.request.type == 'Pair'){
+				console.log('Pairing request');
+				console.log('Slot value: '+Request.request.intent.slots.Code.value);
+				//Lookup user with that code
+				User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
+					if(!user){
+						console.log("Error pairing! code was: "+Request.request.intent.slots.Code.value);
+						response.json(createResponse("I could not find that pairing code. Try pairing again",false));
+					}
+					else{
+						response.json(createResponse("Pairing complete. Say Get me an Uber to order an Uber" , false));	
+					}
+				
+				});
+			}
+			else{
+				response.json(createResponse('You need to pair with your Uber account first.'));
+			}
+			
 		}
 		else{
 			console.log('Authenticated Uber user:'+user);
@@ -64,20 +83,6 @@ exports.handleEchoRequest = function(request,response){
 					console.log("Slots: "+util.inspect(Request.request.intent.slots));
 					
 					switch (Request.request.intent.name){
-
-						case 'Pair':
-							//Lookup user with that code
-							User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
-								if(!user){
-									console.log("Error pairing! code was: "+Request.request.intent.slots.Code.value);
-									response.json(createResponse("I could not find that pairing code. Try pairing again",false));
-								}
-								else{
-									response.json(createResponse("Pairing complete. Say Get me an Uber to order an Uber" , false));	
-								}
-							
-							});
-							break;
 
 						case 'Status':
 							if(!user.request_id){
