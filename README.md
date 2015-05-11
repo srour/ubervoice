@@ -8,6 +8,6 @@ Commands:
 
 
 TODO:
+- Geocode
 - Ensure setup code is unique
-- Age out request when it has been completed
 - Car preference

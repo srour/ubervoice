@@ -110,13 +110,13 @@ exports.handleEchoRequest = function(request,response){
 										if(body.status == 'accepted'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
 
-							 				response.json(createResponse(responseText));
+							 				response.json(createResponse(responseText,true));
 										}
 										else if(body.status=='processing'){
-											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
+											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta +" minutes"),true);
 										}
 										else{
-											response.json(createResponse("Check the log"));
+											response.json(createResponse("Check the log",true));
 										}
 										
 									});
