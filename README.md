@@ -8,6 +8,7 @@ Commands:
 
 
 TODO:
-- Geocode
+- Checkbox for making it real vs. fake
 - Ensure setup code is unique
 - Car preference
+- Cleanup debug printing

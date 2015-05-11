@@ -9,20 +9,10 @@ var createResponse = function(outputText,endSession){
 	var response = {};
 	response.version = "1.0";
 
-	response.sessionAttributes = {
-		"test":"foobar"
-	};
-
 	response.response = {
 		"outputSpeech" : {
 			"type":"PlainText",
 			"text":outputText
-		},
-		"card" : {
-			"type":"Simple",
-			"title":"card title",
-			"subtitle":"string",
-			"content":"string"
 		},
 		"shouldEndSession": endSession
 	};
@@ -174,7 +164,7 @@ exports.handleEchoRequest = function(request,response){
 									scope: 'request',
 									start_longitude:body.results[0].geometry.location.lng,
 									start_latitude:body.results[0].geometry.location.lat,
-									product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
+									product_id:req.user.product_id_preference,
 								};
 								console.log('Request is: '+data);
 

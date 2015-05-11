@@ -21,11 +21,15 @@
 <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
-<script src="/lib/jquery/jquery.js"/>
+<script src="/lib/jquery/jquery.js"></script>
 <script src="/lib/bootstrap/bootstrap.js"></script>
 <link href="/lib/bootstrap/bootstrap.css" rel="stylesheet"/>
 
 <script>
+$(document).ready(function() {
+    $(".dropdown-toggle").dropdown();
+});
+
 function save(){
 
   var data = {
@@ -33,6 +37,7 @@ function save(){
     city:$('#city').val(),
     state:$('#state').val(),
     zipcode:$('#zipcode').val(),
+    product:$('#product').val()
   };
 
   $.post('/updateUserInfo',data,function(result){
@@ -55,7 +60,7 @@ function unlink(){
 
   <div class='row'>
     <h2>UberVoice</h2>
-
+    <p class="lead">Order an Uber from your Amazon Echo</p>
   </div>
 
   <div class='row'>
@@ -119,27 +124,29 @@ function unlink(){
         
   </div>
 
-  <!--div class='row'>
-    <h3>Car preference</h3>
-
-    <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-    Dropdown
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-    </ul>
-  </div>
-
-  </div--!>
-
-
   <div class='row'>
-    <button type="submit" class="btn btn-primary" onclick="save()">Save</button>
-  </div>
+    <h3>Car</h3>
 
+    <% if (products.length) { %>
+
+    <select id='product'>
+    <% products.forEach(function(product){ %>
+        <% if(product_id_preference == product.product_id) { %>
+          <option selected value="<%= product.product_id %>"><%= product.display_name %> - <%= product.description %></option>
+        <% } else { %>
+          <option value="<%= product.product_id %>"><%= product.display_name %> - <%= product.description %></option>  
+    <%  } } ) %>
+    </select>
+    <% } else { %>
+      <p class="text-info">Save your address first so the Uber services for your area can be loaded.</p>
+    <% } %>
+
+      
+  </div>
+  
+
+  <p><p>
+  <div class='row'>
+    <button class="btn btn-primary" onclick="save()">Save</button>
+  </div>
 </html>

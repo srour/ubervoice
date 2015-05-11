@@ -35,7 +35,9 @@ var userSchema = mongoose.Schema({
   street_address:String,
   city_address:String,
   state_address:String,
-  zipcode_address:String
+  zipcode_address:String,
+  real_request:Boolean,
+  product_id_preference:String
 });
 
 userSchema.plugin(findOrCreate);
