@@ -23,7 +23,8 @@ app.listen(config.port,function(){
   console.log('Uber callback:'.bold+config.uberCallbackUri);
   console.log('Uber secret: '.bold+config.uberSecret);
   console.log('Uber client ID:'.bold+config.uberClientId);
-
+  console.log("Google API key: ".bold+config.googleAPIKey);
+  
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
 

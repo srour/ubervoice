@@ -163,29 +163,40 @@ exports.handleEchoRequest = function(request,response){
 							if(reply_sent)
 								break;
 
-							var data = {
-								scope: 'request',
-								start_longitude: '-122.31709',
-								start_latitude:'47.613940',
-								product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
-							};
+							var google = request.createClient('https://maps.googleapis.com');
+							var address = user.street_address+", "+user.city_address+", "+user.state_address+" "+user.zipcode_address;
 
-							client.post('/v1/requests', data, function(err, res, body) {
-							
-								console.log(body);
-								if(res.statusCode==202){
-									console.log('Uber ordered: '+body);
-									user.request_id = body.request_id;
-									user.save();
-									response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
-								}
-								else{
-									console.log('An error occurred ordering the uber: '+err);
+							console.log("Reverse lookup on user address: "+address);
+							google.get('/maps/api/geocode/json?address='+address, function(err, res, body) {
+								console.log(util.inspect(body, {depth:null}));
+
+								var data = {
+									scope: 'request',
+									start_longitude:body.results[0].geometry.location.lng,
+									start_latitude:body.results[0].geometry.location.lat,
+									product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
+								};
+								console.log('Request is: '+data);
+								
+								client.post('/v1/requests', data, function(err, res, body) {
+								
 									console.log(body);
-									response.json(createResponse("An occurred ordering the Uber. Try again later."));
-								}
-							
+									if(res.statusCode==202){
+										console.log('Uber ordered: '+body);
+										user.request_id = body.request_id;
+										user.save();
+										response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
+									}
+									else{
+										console.log('An error occurred ordering the uber: '+err);
+										console.log(body);
+										response.json(createResponse("An occurred ordering the Uber. Try again later."));
+									}
+								
+								});
+
 							});
+
 						
 
 							break;
