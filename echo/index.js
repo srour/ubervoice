@@ -72,7 +72,7 @@ exports.handleEchoRequest = function(request,response){
 						case 'Cancel':
 							console.log("Cancel uber request");
 							if(!user.request_id){
-								response.json(createResponse("You have not requested an uber."),true);
+								response.json(createResponse("You have not requested an uber.",true));
 							}
 							else{
 
@@ -80,7 +80,7 @@ exports.handleEchoRequest = function(request,response){
 									console.log("Cancelled uber request: "+user.request_id);
 									user.request_id = undefined;
 									user.save();
-									response.json(createResponse("Cancelled your request for an Uber."),true);
+									response.json(createResponse("Cancelled your request for an Uber.",true));
 								});
 							}
 
