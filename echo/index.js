@@ -2,7 +2,7 @@ var util = require('util');
 var User = require('../models').User;
 var request = require('request-json');
 var client = request.createClient('https://sandbox-api.uber.com');
-
+var uber = require('../uber');
 
 var createResponse = function(outputText,endSession){
 
@@ -32,7 +32,6 @@ var createResponse = function(outputText,endSession){
 
 exports.handleEchoRequest = function(request,response){
 	var Request = request.body;
-
 
 	console.log('Request type:'+Request.request.type);
 	console.log(request.body);
@@ -83,7 +82,7 @@ exports.handleEchoRequest = function(request,response){
 						case 'Status':
 							if(!user.request_id){
 								console.log('No outstanding Uber requests.');
-								response.json(createResponse("You do not have any outstanding Uber requests."));
+								response.json(createResponse("You have not requested any Ubers. Say Get me an uber to order an Uber.",false));
 							}
 							else{
 								console.log('Using access token: '+user.accessToken);
@@ -109,29 +108,59 @@ exports.handleEchoRequest = function(request,response){
 
 						case 'GetUber':
 
-							var data = {
-								scope: 'request',
-								start_longitude: '-122.31709',
-								start_latitude:'47.613940',
-								product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
-							};
+							//Check to see if a request is already pending
 
-							client.post('/v1/requests', data, function(err, res, body) {
+							if(user.request_id){
+								console.log('Existing request found. Checking status...');
+								client.get('/v1/requests/'+user.request_id, function(err, res, body) {
+										console.log('Request status');
+										console.log(body);
+										if(body.status == 'completed'){
+											console.log('Request was completed. Clearing request ID.');
+											user.request_id = undefined;
+											user.save();
+										}
+										else if(body.status == 'accepted'){
+											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
+							 				response.json(createResponse(responseText));
+										}
+										else if(body.status=='processing'){
+											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
+										}
+										else{
+											//TODO HANDLE MORE STATUS
+											response.json(createResponse("Check the log"));
+										}
+										
+									});
+							}
+							else{
+
+								var data = {
+									scope: 'request',
+									start_longitude: '-122.31709',
+									start_latitude:'47.613940',
+									product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
+								};
+
+								client.post('/v1/requests', data, function(err, res, body) {
 								
-								console.log(body);
-								if(res.statusCode==202){
-									console.log('Uber ordered: '+body);
-									user.request_id = body.request_id;
-									user.save();
-									response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
-								}
-								else{
-									console.log('An error occurred ordering the uber: '+err);
 									console.log(body);
-									response.json(createResponse("An occurred ordering the Uber. Try again later."));
-								}
+									if(res.statusCode==202){
+										console.log('Uber ordered: '+body);
+										user.request_id = body.request_id;
+										user.save();
+										response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
+									}
+									else{
+										console.log('An error occurred ordering the uber: '+err);
+										console.log(body);
+										response.json(createResponse("An occurred ordering the Uber. Try again later."));
+									}
 								
-							});
+								});
+							}
+
 							break;
 
 					}
@@ -141,7 +170,6 @@ exports.handleEchoRequest = function(request,response){
 	});
 
 }
-
 
 
 

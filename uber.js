@@ -20,7 +20,9 @@ app.listen(config.port,function(){
   console.log("Hostname: ".bold+config.hostname+ " port: "+config.port);  
   console.log("Public directory: ".bold+config.public);
   console.log('Logfile: '.bold+config.logging.file);
-  console.log('Callback URI:'.bold+config.uberCallbackUri);
+  console.log('Uber callback:'.bold+config.uberCallbackUri);
+  console.log('Uber secret: '.bold+config.uberSecret);
+  console.log('Uber client ID:'.bold+config.uberClientId);
 
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');

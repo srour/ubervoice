@@ -2,6 +2,25 @@
 <title>UberVoice</title>
 
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+<meta name="theme-color" content="#ffffff">
+
 <script src="/lib/jquery/jquery.js"/>
 <script src="/lib/bootstrap/bootstrap.js"></script>
 <link href="/lib/bootstrap/bootstrap.css" rel="stylesheet"/>
@@ -21,6 +40,13 @@ function save(){
   });
 
 }
+function unlink(){
+  $.post('/unlink',function(result){
+    console.log('Response from server was: '+result);
+    location.reload();
+  });
+}
+
 </script>
 
 </head>
@@ -29,21 +55,25 @@ function save(){
 
   <div class='row'>
     <h2>UberVoice</h2>
-    Logged in with your Uber account<p>
+
   </div>
 
   <div class='row'>
     <h3>Pairing</h3>
-    <% if(code) { %>
-    Your setup code is <%= code %><p>
-    Say "Alexa, launch uber and setup with code <%= code %>"
+
+    <% if(pairedStatus) { %>
+      <p class="text-success">Your Uber account is paired with your Amazon Echo</p>
+      <button class="btn btn-danger" onclick='unlink()'>Unlink account</button>
+    <% } else { %>
+      <p class="text-info">Pair your Amazon Echo by saying "Alexa, launch Uber and setup with code <%= setupCode %>"</p>
     <% } %>
 
   </div>
 
   <div class="row">
 
-    <h3>Address to have Uber go to</h3>
+    <h3>Address</h3>
+    This is the address the Uber will be sent to
      <form class="form-horizontal">
 
             <fieldset>
@@ -86,11 +116,17 @@ function save(){
             </fieldset>
         </form>
 
-        <button type="submit" class="btn btn-primary" onclick="save()">Save</button>
+        
+  </div>
+
+  <div class='row'>
+    <h3>Car preference</h3>
+
   </div>
 
 
-
-
+  <div class='row'>
+    <button type="submit" class="btn btn-primary" onclick="save()">Save</button>
+  </div>
 
 </html>

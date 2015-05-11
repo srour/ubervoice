@@ -12,22 +12,46 @@ exports.index = function(req,res){
   else{
     console.log('User is logged in!');
 
-    //Generate small number
-    var setupCode = randomIntInc(0,10);
-    console.log('Setup pairing code is: '+setupCode);
-
-    User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, {new:true}, function (err, user) {
+    var pairedStatus = false;
+    if(req.user.amazon_id && req.user.uber_id){
+      pairedStatus = true;
       res.render('main.ejs',{
-        code: setupCode,
-        street_address:user.street_address,
-        city_address:user.city_address,
-        state_address:user.state_address,
-        zipcode_address:user.zipcode_address
+          pairedStatus:pairedStatus,
+          street_address:req.user.street_address,
+          city_address:req.user.city_address,
+          state_address:req.user.state_address,
+          zipcode_address:req.user.zipcode_address
       });
-    });
+    }
+    else{
+
+      //Generate small number
+      var setupCode = randomIntInc(0,10);
+      console.log('Setup pairing code is: '+setupCode);
+
+      User.findOneAndUpdate({ 'email': req.user.email }, {setupCode:setupCode}, {new:true}, function (err, user) {
+        res.render('main.ejs',{
+          pairedStatus:pairedStatus,
+          setupCode: setupCode,
+          street_address:user.street_address,
+          city_address:user.city_address,
+          state_address:user.state_address,
+          zipcode_address:user.zipcode_address
+        });
+      });
+
+    }
 
   }
   
+}
+
+exports.unlinkAccount = function(req,res){
+  console.log('Unlinking account for user: '+req.user.email);
+  User.findOneAndUpdate({'uber_id':req.user.uber_id},{amazon_id:undefined},function(err,user){
+    res.json({});
+  });
+
 }
 
 exports.handleEchoRequest = function(req,res){
@@ -51,8 +75,6 @@ exports.updateUserInfo = function(req,res){
     },{new:true},function(err,user){
       res.json({});
     });
-
-
 }
 
 function randomIntInc (low, high) {
