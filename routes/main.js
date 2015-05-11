@@ -14,13 +14,16 @@ exports.index = function(req,res){
 
     var pairedStatus = false;
     if(req.user.amazon_id && req.user.uber_id){
+
+
       pairedStatus = true;
       res.render('main.ejs',{
           pairedStatus:pairedStatus,
           street_address:req.user.street_address,
           city_address:req.user.city_address,
           state_address:req.user.state_address,
-          zipcode_address:req.user.zipcode_address
+          zipcode_address:req.user.zipcode_address,
+          cars:cars
       });
     }
     else{

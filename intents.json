@@ -26,6 +26,10 @@
       "slots":[]
     },
     {
+      "intent":"Cancel",
+      "slots":[]
+    },
+    {
       "intent":"Pair",
       "slots":[
         {

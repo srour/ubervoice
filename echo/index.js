@@ -79,6 +79,23 @@ exports.handleEchoRequest = function(request,response){
 					
 					switch (Request.request.intent.name){
 
+						case 'Cancel':
+							console.log("Cancel uber request");
+							if(!user.request_id){
+								response.json(createResponse("You have not requested an uber."));
+							}
+							else{
+
+								client.del('/v1/requests/'+user.request_id,function(err,res,body){
+									console.log("Cancelled uber request: "+user.request_id);
+									response.json(createResponse("Canceled your request for an Uber."),true);
+									user.request_id = undefined;
+									user.save();
+								});
+							}
+
+							break;
+
 						case 'Status':
 							if(!user.request_id){
 								console.log('No outstanding Uber requests.');
@@ -145,7 +162,7 @@ exports.handleEchoRequest = function(request,response){
 							
 							if(reply_sent)
 								break;
-							
+
 							var data = {
 								scope: 'request',
 								start_longitude: '-122.31709',
