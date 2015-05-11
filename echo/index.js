@@ -59,7 +59,7 @@ exports.handleEchoRequest = function(request,response){
 				});
 			}
 			else{
-				response.json(createResponse('You need to pair with your Uber account first.'));
+				response.json(createResponse('You need to pair with your Uber account first.',true));
 			}
 			
 		}
@@ -113,7 +113,7 @@ exports.handleEchoRequest = function(request,response){
 							 				response.json(createResponse(responseText,true));
 										}
 										else if(body.status=='processing'){
-											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta +" minutes"),true);
+											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta +" minutes",true));
 										}
 										else{
 											response.json(createResponse("Check the log",true));
@@ -144,17 +144,17 @@ exports.handleEchoRequest = function(request,response){
 										}
 										else if(body.status == 'accepted'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
-							 				response.json(createResponse(responseText));
+							 				response.json(createResponse(responseText,true));
 							 				reply_sent = true;
 										}
 										else if(body.status=='processing'){
 											reply_sent = true;
-											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
+											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta+" minutes",true));
 										}
 										else{
 											//TODO HANDLE MORE STATUS
 											reply_sent = true;
-											response.json(createResponse("Check the log"));
+											response.json(createResponse("Check the log",true));
 										}
 										
 									});
@@ -190,7 +190,7 @@ exports.handleEchoRequest = function(request,response){
 									else{
 										console.log('An error occurred ordering the uber: '+err);
 										console.log(body);
-										response.json(createResponse("An occurred ordering the Uber. Try again later."));
+										response.json(createResponse("An occurred ordering the Uber. Try again later.",true));
 									}
 								
 								});
