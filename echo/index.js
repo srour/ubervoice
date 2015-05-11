@@ -109,13 +109,18 @@ exports.handleEchoRequest = function(request,response){
 						case 'GetUber':
 
 							//Check to see if a request is already pending
-
+							var reply_sent = false;
 							if(user.request_id){
 								console.log('Existing request found. Checking status...');
 								client.get('/v1/requests/'+user.request_id, function(err, res, body) {
-										console.log('Request status');
-										console.log(body);
-										if(body.status == 'completed'){
+										console.log('Request status: '+body);
+										
+										if(body.code == 'not_found'){
+											user.request_id = undefined;
+											user.save();
+										}
+										
+										else if(body.status == 'completed'){
 											console.log('Request was completed. Clearing request ID.');
 											user.request_id = undefined;
 											user.save();
@@ -123,43 +128,48 @@ exports.handleEchoRequest = function(request,response){
 										else if(body.status == 'accepted'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
 							 				response.json(createResponse(responseText));
+							 				reply_sent = true;
 										}
 										else if(body.status=='processing'){
+											reply_sent = true;
 											response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta));
 										}
 										else{
 											//TODO HANDLE MORE STATUS
+											reply_sent = true;
 											response.json(createResponse("Check the log"));
 										}
 										
 									});
 							}
-							else{
+							
+							if(reply_sent)
+								break;
+							
+							var data = {
+								scope: 'request',
+								start_longitude: '-122.31709',
+								start_latitude:'47.613940',
+								product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
+							};
 
-								var data = {
-									scope: 'request',
-									start_longitude: '-122.31709',
-									start_latitude:'47.613940',
-									product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
-								};
-
-								client.post('/v1/requests', data, function(err, res, body) {
-								
+							client.post('/v1/requests', data, function(err, res, body) {
+							
+								console.log(body);
+								if(res.statusCode==202){
+									console.log('Uber ordered: '+body);
+									user.request_id = body.request_id;
+									user.save();
+									response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
+								}
+								else{
+									console.log('An error occurred ordering the uber: '+err);
 									console.log(body);
-									if(res.statusCode==202){
-										console.log('Uber ordered: '+body);
-										user.request_id = body.request_id;
-										user.save();
-										response.json(createResponse("Your uber is on its way. It will be here in "+body.eta+" minutes",true));
-									}
-									else{
-										console.log('An error occurred ordering the uber: '+err);
-										console.log(body);
-										response.json(createResponse("An occurred ordering the Uber. Try again later."));
-									}
-								
-								});
-							}
+									response.json(createResponse("An occurred ordering the Uber. Try again later."));
+								}
+							
+							});
+						
 
 							break;
 
