@@ -23,7 +23,6 @@ exports.index = function(req,res){
           city_address:req.user.city_address,
           state_address:req.user.state_address,
           zipcode_address:req.user.zipcode_address,
-          cars:cars
       });
     }
     else{
