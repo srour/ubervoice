@@ -2,7 +2,7 @@ var util = require('util');
 var User = require('../models').User;
 var request = require('request-json');
 var client = request.createClient('https://sandbox-api.uber.com');
-var uber = require('../uber');
+var google = request.createClient('https://maps.googleapis.com');
 
 var createResponse = function(outputText,endSession){
 
@@ -163,7 +163,7 @@ exports.handleEchoRequest = function(request,response){
 							if(reply_sent)
 								break;
 
-							var google = request.createClient('https://maps.googleapis.com');
+
 							var address = user.street_address+", "+user.city_address+", "+user.state_address+" "+user.zipcode_address;
 
 							console.log("Reverse lookup on user address: "+address);
@@ -177,7 +177,7 @@ exports.handleEchoRequest = function(request,response){
 									product_id:'6450cc0f-4d39-4473-8632-1e2c2049fefe',
 								};
 								console.log('Request is: '+data);
-								
+
 								client.post('/v1/requests', data, function(err, res, body) {
 								
 									console.log(body);
