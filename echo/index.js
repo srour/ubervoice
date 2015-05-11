@@ -42,9 +42,10 @@ exports.handleEchoRequest = function(request,response){
 			console.log('No user found. Pairing operating has not happened yet.');
 			console.log('AmazonUserId: '+Request.session.user.userId);
 
-			if(Request.request.type == 'Pair'){
+			if(Request.request.type == 'IntentRequest' && Request.request.intent.name == 'Pair'){
 				console.log('Pairing request');
 				console.log('Slot value: '+Request.request.intent.slots.Code.value);
+
 				//Lookup user with that code
 				User.findOneAndUpdate({'setupCode':Request.request.intent.slots.Code.value},{amazon_id:Request.session.user.userId},function(err,user){
 					if(!user){
@@ -70,12 +71,6 @@ exports.handleEchoRequest = function(request,response){
 		
 				case 'LaunchRequest':
 					response.json(createResponse("Say get me an Uber",false));
-					break;
-		
-				case 'SessionEndedRequest':
-					//Remove session from session store
-					console.log('End session reason: '+Request.request.reason);
-					response.json(createResponse("Goodbye"));
 					break;
 		
 				case 'IntentRequest':
