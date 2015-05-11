@@ -164,7 +164,7 @@ exports.handleEchoRequest = function(request,response){
 									scope: 'request',
 									start_longitude:body.results[0].geometry.location.lng,
 									start_latitude:body.results[0].geometry.location.lat,
-									product_id:req.user.product_id_preference,
+									product_id:user.product_id_preference,
 								};
 								console.log('Request is: '+data);
 
