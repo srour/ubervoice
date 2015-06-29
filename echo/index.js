@@ -99,7 +99,6 @@ exports.handleEchoRequest = function(request,response){
 
 										if(body.status == 'accepted'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
-
 							 				response.json(createResponse(responseText,true));
 										}
 										else if(body.status=='processing'){
@@ -127,12 +126,12 @@ exports.handleEchoRequest = function(request,response){
 											user.save();
 										}
 										
-										else if(body.status == 'completed'){
+										else if(body.status == 'completed' || body.status == 'no_drivers_available' || body.status == 'driver_canceled' || body.status == 'rider_canceled'){
 											console.log('Request was completed. Clearing request ID.');
 											user.request_id = undefined;
 											user.save();
 										}
-										else if(body.status == 'accepted'){
+										else if(body.status == 'accepted' || body.status == 'in_progress' || body.status == 'arriving'){
 											var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
 							 				response.json(createResponse(responseText,true));
 							 				reply_sent = true;
@@ -199,6 +198,54 @@ exports.handleEchoRequest = function(request,response){
 
 }
 
+
+var getUberStatus = function(user,callback){
+	client.get('/v1/requests/'+user.request_id, function(err, res, body) {
+		console.log('Request status: '+body);
+		callback(body);
+	});
+}
+
+
+var sendUberStatus = function(status,response){
+	switch(status){
+		case 'accepted':
+			var responseText = 'Your driver '+body.driver.name+' is on the way in a '+body.vehicle.make+' '+body.vehicle.model+ ' They will be here in '+body.eta+' minutes';
+			response.json(createResponse(responseText,true));
+			break;
+		case 'processing':
+			response.json(createResponse("Your uber request is still getting processed. It should be here in "+body.eta+" minutes",true));
+			break;
+
+		case 'arriving':
+			response.json(createResponse('Your driving is arriving. Look for a '+body.vehicle.make + ' '+body.vehicle.model+'.',true));
+			break;
+
+		case 'completed':
+			response.json(createResponse('The ride was completed.',true));
+			break;
+
+		case 'no_drivers_available':
+			response.json(createResponse('No drivers were available and the request was canceled.',true));
+			break;
+
+		case 'driver_canceled':
+			response.json(createResponse('The driver cancelled the request.',true));
+			break;
+
+		case 'rider_canceled':
+			response.json(createResponse('You cancelled the request.',true));
+			break;
+	}
+
+}
+
+var geocodeAddress = function(address,callback){
+	console.log("Reverse lookup on user address: "+address);
+	google.get('/maps/api/geocode/json?address='+address, function(err, res, body) {
+		callback({lat: body.results[0].geometry.location.lat, lng: body.results[0].geometry.location.lng});
+	});
+}
 
 
 
